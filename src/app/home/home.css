@@ -1,0 +1,91 @@
+main {
+  /* border-radius: 5px; */
+  /* margin: 2em; */
+  /* border: 1px solid var(--border-color); */
+  display: flex;
+  align-items: center;
+}
+ul {
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  gap: 4em;
+  justify-content: center;
+}
+.polygon-outer {
+  max-width: 98%;
+  display: flex;
+  align-items: center;
+}
+.polygon-inner {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+section {
+  width: 90%;
+  background-color: black;
+  margin: 0.5em 2em 0.5em 1.5em;
+}
+h2 {
+  font-family: "p5main";
+}
+span {
+  font-size: 1.5em;
+}
+#tools span {
+  &:first-child {
+    transform: rotate(-4deg);
+    color: black;
+    background-color: white;
+    border-color: var(--red);
+  }
+  &:nth-child(2) {
+    color: var(--red);
+  }
+  &:nth-child(3) {
+    transform: rotate(4deg);
+  }
+  &:nth-child(4) {
+    background-color: var(--red);
+  }
+  &:last-child {
+    transform: rotate(-2deg);
+    border-color: var(--red);
+  }
+}
+
+#database span {
+  &:first-child {
+    transform: rotate(3deg);
+    border-color: var(--red);
+  }
+  &:nth-child(2) {
+    color: var(--red);
+    transform: rotate(-2deg);
+  }
+  &:nth-child(3) {
+    background-color: var(--red);
+    transform: rotate(4deg);
+  }
+  &:nth-child(4) {
+    transform: rotate(-1deg);
+  }
+  &:nth-child(5) {
+    background-color: var(--red);
+  }
+  &:nth-child(6) {
+    transform: rotate(5deg);
+    background-color: var(--red);
+  }
+  &:nth-child(7) {
+    transform: rotate(-4deg);
+    color: black;
+    background-color: white;
+    border-color: var(--red);
+  }
+  &:last-child {
+    transform: rotate(-2deg);
+    border-color: var(--red);
+  }
+}

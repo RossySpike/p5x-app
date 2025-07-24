@@ -1,0 +1,45 @@
+main {
+  display: flex;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+article {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
+header {
+  background-color: rgba(0, 0, 0, 0.8);
+  /* display: grid; */
+  /* grid-auto-rows: 1fr; */
+  /* grid-template-columns: repeat(3, 1fr); */
+  /* gap: 0px 0px; */
+  /* & > h1 { */
+  /*   justify-self: center; */
+  /* } */
+}
+nav {
+  width: 4vw;
+  background-color: var(--p5-red);
+  & button {
+    background-image: url("../../assets/ui/menu.svg");
+    width: 100%;
+    height: 4em;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    border: none;
+    margin: 0;
+    &:hover {
+      cursor: pointer;
+      animation: hover-button 0.3s ease-in-out;
+      animation-fill-mode: forwards;
+    }
+  }
+}
+* {
+  box-sizing: border-box;
+}

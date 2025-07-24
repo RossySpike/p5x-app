@@ -1,0 +1,97 @@
+/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: "p5heavy";
+  src: url("../assets/fonts/HEAVYHEA.ttf");
+}
+@font-face {
+  font-family: "p5hatty";
+  src: url("../assets/fonts/p5hatty-1.ttf");
+}
+@font-face {
+  font-family: "p5main";
+  src: url("../assets/fonts/Persona5main.ttf");
+}
+:root {
+  --border-color: gray;
+  /*upper left:(x:left,y:top)*/
+  /*upper right:(x:left,y:top)*/
+  /*bottom right:(x:left,y:top)*/
+  /*left left:(x:left,y:top)*/
+  --polygon-outer: polygon(2% 4%, 100% 0, 94% 94%, 5% 94%);
+  --polygon-outer-mirror: polygon(0 0, 98% 4%, 95% 96%, 5% 95%);
+  --polygon-inner: polygon(3% 7%, 99% 1%, 93% 89%, 6% 91%);
+  --polygon-inner-mirror: polygon(1% 1%, 93% 7%, 94% 91%, 7% 89%);
+  --red: #ff0100;
+  --p5-red: #d92323;
+}
+option,
+select,
+button,
+input {
+  color: black;
+}
+* {
+  color: white;
+}
+html {
+  width: 100%;
+  background-image: url("../assets/bg.webp");
+}
+body {
+  margin: 0;
+  border: 0;
+  width: 100%;
+  height: 100%;
+}
+.polygon-outer {
+  clip-path: var(--polygon-outer);
+  background-color: black;
+  box-sizing: border-box;
+}
+.polygon-inner {
+  clip-path: var(--polygon-inner);
+  background-color: white;
+  box-sizing: border-box;
+  padding: 1em 4em 2em 4em; /* Top Right Bottom Left */
+}
+
+.character-box {
+  background-color: black;
+  margin: 5px;
+  border: 2px solid white;
+  display: inline-block;
+}
+@keyframes shake {
+  from {
+    transform: rotate(-5deg);
+  }
+  to {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes hover-button {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes polygon-outer-shake {
+  from {
+    clip-path: var(--polygon-outer);
+  }
+  to {
+    clip-path: var(--polygon-outer-mirror);
+  }
+}
+@keyframes polygon-inner-shake {
+  from {
+    clip-path: var(--polygon-inner);
+  }
+  to {
+    clip-path: var(--polygon-inner-mirror);
+  }
+}

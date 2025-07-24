@@ -1,0 +1,228 @@
+<main>
+  <form [formGroup]="form" (submit)="calculate()">
+    <label for="pulling">I'm pulling for</label>
+    <select
+      type="string"
+      id="pulling"
+      formControlName="pulling"
+      placeholder="Character"
+      required
+      (click)="clearLeftOver()"
+    >
+      <option value="Character">Character</option>
+      <option value="Weapon">Weapon</option>
+      <option value="Both">Both</option>
+    </select>
+    <hr />
+    <label for="crystal">Enter the number of Crystals:</label>
+    <input
+      type="number"
+      id="crystal"
+      formControlName="crystalCount"
+      placeholder="11925"
+      required
+    />
+    <label for="jewel">Enter the number of Meta jewels:</label>
+    <input
+      type="number"
+      id="jewel"
+      formControlName="jewelCount"
+      placeholder="11925"
+      required
+    />
+    <hr />
+    @if (form.get("pulling")?.value === "Character") {
+      <label for="platinum-ticket">Enter number of Platinum Tickets </label>
+      <input
+        type="number"
+        id="platinum-ticket"
+        formControlName="platinumTicketCount"
+        placeHolder="0"
+        required
+      />
+      <label for="pity-type">Pity Type</label>
+      <select
+        type="string"
+        id="pity-type"
+        formControlName="pityType"
+        required
+        placeHolder="160"
+        (click)="updateMax()"
+      >
+        <option value="160">160</option>
+        <option value="110">110</option>
+      </select>
+
+      <label for="chara-pity">Enter your pity</label>
+      <input
+        type="number"
+        id="chara-pity"
+        formControlName="charaPity"
+        placeHolder="0"
+        min="0"
+        max="159"
+        required
+      />
+      @if (form.get("charaPity")?.hasError("min")) {
+        <div>Minimun value is: 0</div>
+      }
+      @if (form.get("charaPity")?.hasError("max")) {
+        <div>Maximun value is: {{ currentCharaMax }}</div>
+      }
+    } @else if (form.get("pulling")?.value === "Weapon") {
+      <label for="platinum-mili">Enter number of Milicoins</label>
+      <input
+        type="number"
+        id="platinum-mili"
+        formControlName="platinumMiliCount"
+        placeHolder="0"
+        required
+      />
+
+      <label for="weapon-pity">Enter your pity</label>
+      <input
+        type="number"
+        id="weapon-pity"
+        formControlName="weaponPity"
+        placeHolder="0"
+        min="0"
+        max="159"
+        required
+      />
+    }
+    @if (form.get("pulling")?.value === "Both") {
+      <label for="platinum-ticket">Enter number of Platinum Tickets </label>
+      <input
+        type="number"
+        id="platinum-ticket"
+        formControlName="platinumTicketCount"
+        placeHolder="0"
+        required
+      />
+      <label for="pity-type">Pity Type</label>
+      <select
+        type="string"
+        id="pity-type"
+        formControlName="pityType"
+        required
+        placeHolder="160"
+        (click)="updateMax()"
+      >
+        <option value="160">160</option>
+        <option value="110">110</option>
+      </select>
+
+      <label for="chara-pity">Enter your pity</label>
+      <input
+        type="number"
+        id="chara-pity"
+        formControlName="charaPity"
+        placeHolder="0"
+        min="0"
+        max="159"
+        required
+      />
+      @if (form.get("charaPity")?.hasError("min")) {
+        <div>Minimun value is: 0</div>
+      }
+      @if (form.get("charaPity")?.hasError("max")) {
+        <div>Maximun value is: {{ currentCharaMax }}</div>
+      }
+
+      <!-- For the Weapon -->
+
+      <hr />
+      <label for="platinum-mili">Enter number of Milicoins</label>
+      <input
+        type="number"
+        id="platinum-mili"
+        formControlName="platinumMiliCount"
+        placeHolder="0"
+        required
+      />
+
+      <label for="weapon-pity">Enter your pity</label>
+      <input
+        type="number"
+        id="weapon-pity"
+        formControlName="weaponPity"
+        placeHolder="0"
+        min="0"
+        max="159"
+        required
+      />
+    }
+    <hr />
+    <button>
+      <span class="character-box">C</span>
+      <span class="character-box">a</span>
+      <span class="character-box">l</span>
+      <span class="character-box">c</span>
+      <span class="character-box">u</span>
+      <span class="character-box">l</span>
+      <span class="character-box">a</span>
+      <span class="character-box">t</span>
+      <span class="character-box">e</span>
+    </button>
+  </form>
+  @if (finishCalc) {
+    <article class="polygon-outer">
+      <div class="polygon-inner">
+        <h3>Pulling for '{{ form.get("pulling")?.value }}'</h3>
+        <p>Left Over Crystals: {{ leftOverCrystals }}</p>
+        <p>Left Over Jewels: {{ leftOverJewels }}</p>
+
+        @if (form.get("pulling")?.value === "Character") {
+          <p>Left Over Platinum Tickets: {{ leftOverPlatinum }}</p>
+          @if (pullsLeftChara > 0) {
+            <p>
+              You would need to do {{ pullsLeftChara }} more pull{{
+                pullsLeftChara === 1 ? "" : "s"
+              }}
+              to get the character
+            </p>
+          } @else {
+            <p>Congrats! you got the character</p>
+          }
+        }
+        @if (form.get("pulling")?.value === "Weapon") {
+          <p>Left Over Mili: {{ leftOverMili }}</p>
+          @if (pullsLeftWeapon > 0) {
+            <p>
+              You would need to do {{ pullsLeftWeapon }} more pull{{
+                pullsLeftWeapon === 1 ? "" : "s"
+              }}
+              to get the weapon
+            </p>
+          } @else {
+            <p>Congrats! you got the weapon</p>
+          }
+        }
+        @if (form.get("pulling")?.value === "Both") {
+          <p>Left Over Platinum Tickets: {{ leftOverPlatinum }}</p>
+          @if (pullsLeftChara > 0) {
+            <p>
+              You would need to do {{ pullsLeftChara }} more pull{{
+                pullsLeftChara === 1 ? "" : "s"
+              }}
+              to get the character
+            </p>
+          } @else {
+            <p>Congrats! you got the character</p>
+          }
+          <p>Left Over Mili: {{ leftOverMili }}</p>
+          @if (pullsLeftWeapon > 0) {
+            <p>
+              You would need to do {{ pullsLeftWeapon }} more pull{{
+                pullsLeftWeapon === 1 ? "" : "s"
+              }}
+              to get the weapon
+            </p>
+          } @else {
+            <p>Congrats! you got the weapon</p>
+          }
+        }
+      </div>
+    </article>
+  }
+</main>
