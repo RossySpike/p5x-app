@@ -24,6 +24,28 @@
   --red: #ff0100;
   --p5-red: #d92323;
 }
+
+form {
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  margin: 3em 1em 4em 1em;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+span,
+p {
+  font-family: "p5hatty";
+  font-size: 1.2em;
+}
+hr {
+  width: 96%;
+
+  border-radius: 50%;
+  margin: 1.2em auto;
+}
 option,
 select,
 button,
@@ -42,6 +64,10 @@ body {
   border: 0;
   width: 100%;
   height: 100%;
+}
+.error {
+  font-size: 1em;
+  color: var(--p5-red);
 }
 .polygon-outer {
   clip-path: var(--polygon-outer);

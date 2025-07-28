@@ -1,0 +1,387 @@
+<main id="root-damage-calculator">
+  <p>
+    I highly encourage the reading of
+    <a
+      href="https://lufel.net/article/damage-calc/?lang=en#calculation-example"
+      target="_blank"
+      rel="noopener"
+      >this article</a
+    >
+    to understand how the damage formula works in this game
+    <span>kudos to Root</span>
+  </p>
+  <iframe
+    src="https://lufel.net/article/damage-calc/?lang=en#calculation-example"
+    width="600"
+    height="400"
+  ></iframe>
+  <section id="damage-formula">
+    {{ form.get("attack")?.value }}
+    &times; (100% +
+    {{ form.get("attackMult")?.value }}
+    +
+    {{ form.get("elemBonus")?.value }}
+    +
+    {{ form.get("increasedDmgTaken")?.value }}
+    ) &times; 1 -
+    <!-- TODO: Add support: -->
+    <!-- {Enemy defense Value ... }/ -->
+    &lbrace; 100%
+    <!-- TODO: Add support: -->
+    <!-- &times; Additional Defense coefficient -->
+    &times; (100% -
+    {{ form.get("pierce")?.value }}
+    ) -
+    {{ form.get("defenseReduction")?.value }}
+
+    <!-- TODO: Add Support: -->
+    <!--  &times; (100% - Winded ? 12%:0) -->
+    &rbrace; &divide;
+
+    <!-- TODO: Add support: -->
+    <!-- {Enemy defense Value  &times; ... }/ -->
+    &lbrace; 100% * (100%
+    <!-- TODO: Add support: -->
+    <!-- + Additional Defense coefficient -->
+    -
+    {{ form.get("pierce")?.value }}
+
+    ) -
+    {{ form.get("defenseReduction")?.value }}
+    ) +
+    <!-- TODO: Add Support: -->
+    <!--  &times; (100% - Winded ? 12%:0) -->
+    1400 &rbrace; &times;
+
+    {{ form.get("critDmg")?.value }}
+    &times;
+
+    {{ form.get("motionValue")?.value }}
+    &times;
+
+    {{ form.get("weakness")?.value }}
+    &times;
+
+    {{ form.get("finalDmgBonus")?.value }}
+    <!-- TODO: Add support: -->
+    <!-- &times; other coefficients -->
+    <!-- TODO: Add support: -->
+    <!-- &times; RNG (0.95 ~ 1.05) -->
+    =
+    {{ result }}
+    <!-- HERE -->
+  </section>
+  <article id="focus">
+    <form [formGroup]="form" (submit)="calculate()">
+      <section>
+        <div>
+          <label for="attack">Attack</label>
+          <input
+            formControlName="attack"
+            type="number"
+            id="attack"
+            name="attack"
+            placeholder="Attack"
+          />
+          <span class="error">
+            @if (form.get("attack")?.hasError("min")) {
+              Minimun value is: 0
+            }
+            @if (form.get("attack")?.hasError("required")) {
+              This field is required
+            }
+          </span>
+        </div>
+
+        <div>
+          <label for="elem-bonus">Elemental Bonus</label>
+          <input
+            formControlName="elemBonus"
+            type="number"
+            id="elem-bonus"
+            name="elem-bonus"
+            placeholder="Elemental Bonus"
+          />
+          <span class="error">
+            @if (form.get("elemBonus")?.hasError("min")) {
+              Minimun value is: 0
+            }
+            @if (form.get("elemBonus")?.hasError("required")) {
+              This field is required
+            }
+          </span>
+        </div>
+
+        <div>
+          <label for="attack-multiplier">Attack Multiplier</label>
+          <input
+            formControlName="attackMult"
+            type="number"
+            id="attack-multiplier"
+            name="attack-multiplier"
+            placeholder="Attack Multiplier"
+          />
+          <span class="error">
+            @if (form.get("attackMult")?.hasError("min")) {
+              Minimun value is: 0
+            }
+            @if (form.get("attackMult")?.hasError("required")) {
+              This field is required
+            }
+          </span>
+        </div>
+      </section>
+      <hr />
+      <section>
+        <div>
+          <label for="dmg-taken">Increased Damage Taken</label>
+          <input
+            formControlName="increasedDmgTaken"
+            type="number"
+            id="dmg-taken"
+            name="dmg-taken"
+            placeholder="Increased Damage Taken"
+          />
+          <span class="error">
+            @if (form.get("increasedDmgTaken")?.hasError("min")) {
+              Minimun value is: 0
+            }
+            @if (form.get("increasedDmgTaken")?.hasError("required")) {
+              This field is required
+            }
+          </span>
+        </div>
+        <div>
+          <label for="pierce">Pierce</label>
+          <input
+            formControlName="pierce"
+            type="number"
+            id="pierce"
+            name="pierce"
+            placeholder="Pierce"
+          />
+          <span class="error">
+            @if (form.get("pierce")?.hasError("min")) {
+              Minimun value is: 0
+            }
+            @if (form.get("pierce")?.hasError("required")) {
+              This field is required
+            }
+          </span>
+        </div>
+
+        <div>
+          <label for="defense-reduction">Defense Reduction</label>
+          <input
+            formControlName="defenseReduction"
+            type="number"
+            id="defense-reduction"
+            name="defense-reduction"
+            placeholder="Defense Reduction"
+          />
+          <span class="error">
+            @if (form.get("defenseReduction")?.hasError("min")) {
+              Minimun value is: 0
+            }
+            @if (form.get("defenseReduction")?.hasError("required")) {
+              This field is required
+            }
+          </span>
+        </div>
+      </section>
+      <hr />
+
+      <!-- TODO: Add support: -->
+      <!-- {Enemy defense Value ... }/ -->
+      <!-- TODO: Add support: -->
+      <!-- &times; Additional Defense coefficient -->
+
+      <!-- TODO: Add Support: -->
+      <!--  &times; (100% - Winded ? 12%:0) -->
+
+      <!-- TODO: Add support: -->
+      <!-- {Enemy defense Value  &times; ... }/ -->
+      <!-- TODO: Add support: -->
+      <!-- + Additional Defense coefficient -->
+
+      <!-- TODO: Add Support: -->
+      <!--  &times; (100% - Winded ? 12%:0) -->
+
+      <section>
+        <div>
+          <label for="crit-dmg">Critical Damage</label>
+          <input
+            formControlName="critDmg"
+            type="number"
+            id="crit-dmg"
+            name="crit-dmg"
+            placeholder="Critical Damage"
+          />
+          <span class="error">
+            @if (form.get("critDmg")?.hasError("min")) {
+              Minimun value is: 0
+            }
+            @if (form.get("critDmg")?.hasError("required")) {
+              This field is required
+            }
+          </span>
+        </div>
+
+        <div>
+          <label for="motion-value">Motion Value</label>
+          <input
+            formControlName="motionValue"
+            type="number"
+            id="motion-value"
+            name="motion-value"
+            placeholder="Motion Value"
+          />
+          <span class="error">
+            @if (form.get("motionValue")?.hasError("min")) {
+              Minimun value is: 0
+            }
+            @if (form.get("motionValue")?.hasError("required")) {
+              This field is required
+            }
+          </span>
+        </div>
+        <div>
+          <label for="final-damage-bonus">Final Damage Bonus</label>
+          <input
+            formControlName="finalDmgBonus"
+            type="number"
+            id="final-damage-bonus"
+            name="final-damage-bonus"
+            placeholder="Final Damage Bonus"
+          />
+          <span class="error">
+            @if (form.get("finalDmgBonus")?.hasError("min")) {
+              Minimun value is: 0
+            }
+            @if (form.get("finalDmgBonus")?.hasError("required")) {
+              This field is required
+            }
+          </span>
+        </div>
+      </section>
+      <hr />
+      <section class="item-container">
+        <div id="item">
+          <label for="weakness">Weakness</label>
+          <select
+            formControlName="weakness"
+            type="string"
+            id="weakness"
+            placeHolder="Resist"
+          >
+            <option value="50%">Resist</option>
+            <option value="100%">Normal</option>
+            <option value="120%">Weak</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- TODO: Add support: -->
+      <!-- &times; other coefficients -->
+      <!-- TODO: Add support: -->
+      <!-- &times; RNG (0.95 ~ 1.05) -->
+      <hr />
+      <button>
+        <span class="character-box">C</span>
+        <span class="character-box">a</span>
+        <span class="character-box">l</span>
+        <span class="character-box">c</span>
+        <span class="character-box">u</span>
+        <span class="character-box">l</span>
+        <span class="character-box">a</span>
+        <span class="character-box">t</span>
+        <span class="character-box">e</span>
+      </button>
+    </form>
+    <section id="heart-container">
+      <svg id="heart">
+        <path
+          [attr.d]="heartService.bg.path"
+          [attr.fill]="heartService.bg.fill"
+          [attr.transform]="heartService.bg.transform"
+        />
+        <svg>
+          <defs>
+            <linearGradient
+              id="heart-gradient-first"
+              x1="0%"
+              y1="0%"
+              x2="100%"
+              y2="0%"
+            >
+              <stop offset="0%" stop-color="#10E593" />
+              <stop offset="70%" stop-color="#10E593" />
+              <stop offset="70%" stop-color="#363636" />
+              <stop offset="100%" stop-color="#363636" />
+            </linearGradient>
+            <linearGradient
+              id="heart-gradient-second"
+              x1="0%"
+              y1="0%"
+              x2="100%"
+              y2="0%"
+            >
+              <stop offset="0%" stop-color="#10E593" />
+              <stop offset="40%" stop-color="#10E593" />
+              <stop offset="40%" stop-color="#363636" />
+              <stop offset="100%" stop-color="#363636" />
+            </linearGradient>
+            <linearGradient
+              id="heart-gradient-third"
+              x1="0%"
+              y1="0%"
+              x2="100%"
+              y2="0%"
+            >
+              <stop offset="0%" stop-color="#10E593" />
+              <stop offset="10%" stop-color="#10E593" />
+              <stop offset="10%" stop-color="#363636" />
+              <stop offset="100%" stop-color="#363636" />
+            </linearGradient>
+            <linearGradient
+              id="heart-gradient-last"
+              x1="0%"
+              y1="0%"
+              x2="100%"
+              y2="0%"
+            >
+              <stop offset="0%" stop-color="#363636" />
+              <stop offset="100%" stop-color="#363636" />
+            </linearGradient>
+          </defs>
+          <path
+            id="heart-middle"
+            [attr.d]="heartService.middle.path"
+            [attr.fill]="currentColor"
+            [attr.transform]="heartService.middle.transform"
+          />
+          <svg>
+            <path
+              [attr.d]="heartService.outer.path"
+              [attr.fill]="heartService.outer.fill"
+              [attr.transform]="heartService.outer.transform"
+            />
+          </svg>
+        </svg>
+      </svg>
+      <svg id="damage" viewBox="0 0 500 500">
+        <path
+          id="curve"
+          d="M50,200
+          c4,5.1,26.5,-339.8,500,-10.6"
+          fill="transparent"
+        />
+        <text width="500">
+          <textPath fill="white" alignment-baseline="top" xlink:href="#curve">
+            {{ displayDamage }}
+          </textPath>
+        </text>
+      </svg>
+    </section>
+  </article>
+</main>

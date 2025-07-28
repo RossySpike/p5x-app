@@ -11,6 +11,18 @@ ul {
   display: flex;
   gap: 4em;
   justify-content: center;
+  flex-wrap: wrap;
+}
+li {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  justify-content: center;
+  align-items: center;
+  & span {
+    position: relative;
+    transform: translateY(-1em);
+  }
 }
 .polygon-outer {
   max-width: 98%;
@@ -23,6 +35,7 @@ ul {
   justify-content: center;
 }
 section {
+  padding: 2em 1em;
   width: 90%;
   background-color: black;
   margin: 0.5em 2em 0.5em 1.5em;

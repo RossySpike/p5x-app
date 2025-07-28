@@ -1,19 +1,44 @@
-* {
-  font-size: 1.2em;
-  font-family: "p5hatty";
-}
-
-main {
+#root-damage-calculator {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+form {
+  padding: 2em;
+  justify-content: space-between;
+
+  font-family: "p5hatty";
+  font-size: 1.3em;
+  & section {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    & div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      &:first-child {
+        align-items: flex-start;
+      }
+      &:last-child {
+        align-items: flex-end;
+      }
+    }
+  }
+}
+.item-container {
+  justify-items: center;
+}
+#item {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-
-form {
-  width: 40vw;
-}
-h3 {
-  letter-spacing: 0.1em;
+label {
+  font-size: 1.4em;
 }
 button {
   align-self: center;
@@ -32,6 +57,7 @@ button {
     }
   }
   & span {
+    font-size: 0.8em;
     &:first-child {
       transform: rotate(-4deg);
       color: black;
@@ -66,21 +92,32 @@ button {
     }
   }
 }
-.polygon-outer {
-  background-color: var(--p5-red);
-  animation: polygon-outer-shake 0.5s infinite alternate;
-}
-.polygon-inner {
-  animation: polygon-inner-shake 0.5s infinite alternate;
+#heart-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 1em;
-  & > * {
-    margin: 0;
-  }
+  align-items: center;
+  width: auto;
 }
-.polygon-inner * {
-  color: black;
+#damage {
+  position: relative;
+  z-index: 2;
+  transform: translate(-10px, -130px);
+  font-size: 4.4em;
+
+  font-family: p5main;
+  letter-spacing: -16px;
+  width: fit-content;
+}
+#heart {
+  position: relative;
+  transform: translateY(105px);
+  height: 210px;
+}
+#damage-formula {
+  margin-top: 2em;
+}
+#focus {
+  display: flex;
+  align-items: center;
 }
