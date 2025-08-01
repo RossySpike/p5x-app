@@ -1,4 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  WritableSignal,
+  signal,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -18,7 +24,7 @@ export class DamageCalculator implements OnInit {
   calculator: DamageCalculatorService = inject(DamageCalculatorService);
 
   heartService: HeartService = inject(HeartService);
-  currentColor: string = this.heartService.middle.fill;
+  currentColor: WritableSignal<string> = signal(this.heartService.middle.fill);
 
   result: number = 0;
   displayDamage: number = 0;
@@ -45,24 +51,24 @@ export class DamageCalculator implements OnInit {
     const select = document.querySelector('select') as HTMLSelectElement;
     for (let element of inputs) {
       element.addEventListener('click', () => {
-        this.currentColor = this.heartService.middle.fill;
+        this.currentColor.set(this.heartService.middle.fill);
       });
     }
 
     select.addEventListener('click', () => {
-      this.currentColor = this.heartService.middle.fill;
+      this.currentColor.set(this.heartService.middle.fill);
     });
   }
 
-  startHearAnimation() {
+  startHeartAnimation() {
     setTimeout(() => {
-      this.currentColor = 'url(#heart-gradient-first)';
+      this.currentColor.set('url(#heart-gradient-first)');
       setTimeout(() => {
-        this.currentColor = 'url(#heart-gradient-second)';
+        this.currentColor.set('url(#heart-gradient-second)');
         setTimeout(() => {
-          this.currentColor = 'url(#heart-gradient-third)';
+          this.currentColor.set('url(#heart-gradient-third)');
           setTimeout(() => {
-            this.currentColor = 'url(#heart-gradient-last)';
+            this.currentColor.set('url(#heart-gradient-last)');
           }, 150);
         }, 150);
       }, 150);
@@ -90,6 +96,6 @@ export class DamageCalculator implements OnInit {
     this.calculator.finalDmgBonus = this.form.get('finalDmgBonus')?.value || 0;
     this.result = this.calculator.calculateDamage();
     this.displayDamage = Math.round(this.result);
-    this.startHearAnimation();
+    this.startHeartAnimation();
   }
 }

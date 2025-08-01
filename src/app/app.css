@@ -34,7 +34,6 @@ nav {
     border: none;
     margin: 0;
     &:hover {
-      cursor: pointer;
       animation: hover-button 0.3s ease-in-out;
       animation-fill-mode: forwards;
     }

@@ -1,0 +1,60 @@
+<main>
+  <article>
+    <form></form>
+    <section>
+      @for (persona of personas(); track persona.id) {
+        <button class="persona-card clickable" (click)="openModal(persona.id)">
+          <img class="persona-card-image" src="{{ persona.img }}" />
+          <span>
+            {{ persona.name }}
+          </span>
+        </button>
+      }
+    </section>
+  </article>
+</main>
+<dialog #dialogRef class="polygon-outer">
+  @if (selectedPersona()) {
+    <section class="polygon-inner">
+      <section class="polygon-inner">
+        <button class="clickable" (click)="dialog.nativeElement.close()">
+          x
+        </button>
+
+        <section class="persona-info">
+          <img class="persona-card-image" src="{{ selectedPersona().img }}" />
+          <div>
+            <h2>{{ selectedPersona().name }}</h2>
+            <span>{{ selectedPersona().trait }}</span>
+            <h4>Skills</h4>
+            <ul>
+              @for (skill of selectedPersona().skills; track skill.id) {
+                <li class="clickable" (click)="selectSkill(skill)">
+                  {{ skill.name }}
+                </li>
+              }
+            </ul>
+            <section>
+              @if (selectedPersonaSkill()) {
+                <span>{{ selectedPersonaSkill().name }}</span>
+                <span>
+                  {{ selectedPersonaSkill().cost }}
+                  @if (selectedPersonaSkill().cost_type === "HP") {
+                    % HP
+                  } @else {
+                    sp
+                  }
+                </span>
+                <div>
+                  <span>
+                    {{ selectedPersonaSkill().description }}
+                  </span>
+                </div>
+              }
+            </section>
+          </div>
+        </section>
+      </section>
+    </section>
+  }
+</dialog>

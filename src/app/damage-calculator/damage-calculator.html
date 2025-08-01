@@ -272,7 +272,7 @@
             formControlName="weakness"
             type="string"
             id="weakness"
-            placeHolder="Resist"
+            placeholder="Resist"
           >
             <option value="50%">Resist</option>
             <option value="100%">Normal</option>
@@ -286,7 +286,7 @@
       <!-- TODO: Add support: -->
       <!-- &times; RNG (0.95 ~ 1.05) -->
       <hr />
-      <button>
+      <button class="clickable">
         <span class="character-box">C</span>
         <span class="character-box">a</span>
         <span class="character-box">l</span>
@@ -357,7 +357,7 @@
           <path
             id="heart-middle"
             [attr.d]="heartService.middle.path"
-            [attr.fill]="currentColor"
+            [attr.fill]="currentColor()"
             [attr.transform]="heartService.middle.transform"
           />
           <svg>
